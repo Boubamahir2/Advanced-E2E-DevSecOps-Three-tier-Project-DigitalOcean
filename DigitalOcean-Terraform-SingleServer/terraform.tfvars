@@ -1,0 +1,8 @@
+do_token        =       "dop_v1_bbe8c0d51650f36354b878d5dc450abaf3547a2c4275923e474d432d7108357b "
+name            =       "server"
+environment     =       "Development"
+tag             =       "Server"
+image           =       "ubuntu-22-10-x64"
+domain_name     =       "wimwauters.com"
+region          =       "fra1"
+project_name    =       "Project Terraform"
