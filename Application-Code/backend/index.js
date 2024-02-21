@@ -1,19 +1,28 @@
-const tasks = require("./routes/tasks");
-const connection = require("./db");
-const cors = require("cors");
-const express = require("express");
+const tasks = require('./routes/tasks');
+const connectDB = require('./db');
+const cors = require('cors');
+const express = require('express');
+require('dotenv').config();
 const app = express();
-
-connection();
 
 app.use(express.json());
 app.use(cors());
 
 app.get('/ok', (req, res) => {
-    res.status(200).send('ok')
-  })
+  res.status(200).send('ok');
+});
 
-app.use("/api/tasks", tasks);
+app.use('/api/tasks', tasks);
 
-const port = process.env.PORT || 3500;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URI);
+    app.listen(port, () =>
+      console.log(`Server is listening on port ${port}...`)
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();

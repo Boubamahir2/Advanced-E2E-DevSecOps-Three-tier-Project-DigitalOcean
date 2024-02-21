@@ -1,9 +1,9 @@
-#!/bin/bash
+!/bin/bash
 set -e  # Exit immediately if a command exits with a non-zero status
 
-# this code here is to ignore new kernel popup 
-# ignore any interactive questions, its very important when running code with shell script or else your terminal will timeout
-DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+this code here is to ignore new kernel popup 
+ignore any interactive questions, its very important when running code with shell script or else your terminal will timeout
+DEBIAN_FRONTEND=noninteractive apt-get upgrade  --fix-missing -y
 
 sudo apt update -y
 sudo apt install fontconfig openjdk-17-jre -y

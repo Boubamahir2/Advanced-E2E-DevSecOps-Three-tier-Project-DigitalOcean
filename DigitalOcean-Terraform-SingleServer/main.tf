@@ -18,8 +18,8 @@ module "terraform-project" {
 }
 
 module "server-record" {
-  source = "./modules/record"
+  source      = "./modules/record"
   domain_name = var.domain_name
-  name   = module.ubuntu-server.droplet_name
-  value  = module.ubuntu-server.droplet_ip_address
+  name        = module.ubuntu-server.droplet_name
+  value       = module.ubuntu-server.droplet_ip_address
 }

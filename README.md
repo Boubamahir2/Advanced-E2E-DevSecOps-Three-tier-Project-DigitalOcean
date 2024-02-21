@@ -61,3 +61,8 @@ sudo nano test.sh
 
 sudo chmod -R 777 .
 ./test.sh
+
+
+csBLpBGD7E3GQBse
+
+amamahir1
