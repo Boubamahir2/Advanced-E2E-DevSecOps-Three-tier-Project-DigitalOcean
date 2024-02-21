@@ -1,4 +1,4 @@
-do_token     = "dop_v1_99ae9791e659a336dcb85f8e59f346f91fcb495eccbe27f17907d350787dc5f3"
+do_token     = ""
 name         = "server"
 environment  = "Development"
 tag          = "Server"
