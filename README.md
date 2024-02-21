@@ -56,3 +56,8 @@ We welcome contributions! If you have ideas for enhancements or find any issues,
 
 Happy Coding! 🚀
 # C-Users-amama-Desktop-Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean
+
+sudo nano test.sh
+
+sudo chmod -R 777 .
+./test.sh

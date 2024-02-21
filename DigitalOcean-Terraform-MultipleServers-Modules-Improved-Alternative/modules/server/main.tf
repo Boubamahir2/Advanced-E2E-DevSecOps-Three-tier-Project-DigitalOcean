@@ -8,7 +8,6 @@ data "digitalocean_ssh_key" "terraform" {
 }
 
 
-
 resource "digitalocean_droplet" "server" {
     name    = var.name
     image   = var.image
