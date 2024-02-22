@@ -1,12 +1,26 @@
-FROM node:14-alpine as build
-WORKDIR /app
-COPY . .
-RUN npm install
-RUN npm run build
+# FROM node:14-alpine as build
+# WORKDIR /app
+# COPY . .
+# RUN npm install
+# RUN npm run build
 
-# Run stage
-FROM node:14-alpine
+# # Run stage
+# FROM node:14-alpine
+# WORKDIR /app
+# COPY --from=build /app/ ./
+# EXPOSE 3000
+# CMD ["npm", "start"]
+
+FROM node
+
 WORKDIR /app
-COPY --from=build /app/ ./
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
 EXPOSE 3000
-CMD ["npm", "start"]
+
+CMD [ "npm", "start" ]

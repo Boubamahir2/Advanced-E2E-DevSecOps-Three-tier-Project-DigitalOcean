@@ -1,4 +1,3 @@
-do_token     = ""
 name         = "server"
 environment  = "Development"
 tag          = "Server"

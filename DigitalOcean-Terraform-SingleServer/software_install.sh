@@ -14,4 +14,19 @@ sudo chmod 777 /var/run/docker.sock
 echo "Docker installed and started successfully!"
 # Run Docker Container of Sonarqube
 
+# clone code repo
+cd /home
+git clone https://github.com/Boubamahir2/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean.git
+
+# cd into the backend folder
+cd Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/Application-Code/backend
+
+# lets build the docker image of our application backend
+docker build -t server .
+
+
+# cd into the backend folder
+cd Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/Application-Code/frontend
+docker build -t myapp .
+
 
