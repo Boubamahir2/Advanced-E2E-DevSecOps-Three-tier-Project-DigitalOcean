@@ -30,4 +30,4 @@ const authorizeRoles = (...roles) => {
   };
 }
 
-module.exports = { auth };
+module.exports = auth ;
