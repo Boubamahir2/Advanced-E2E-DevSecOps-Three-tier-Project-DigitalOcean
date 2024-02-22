@@ -3,7 +3,7 @@
 
 # # this code here is to ignore new kernel popup 
 # # ignore any interactive questions, its very important when running code with shell script or else your terminal will timeout
-# apt-get update -y
+apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt-get upgrade  -y
 
 # Install Docker
@@ -23,10 +23,10 @@ git clone https://github.com/Boubamahir2/Advanced-E2E-DevSecOps-Three-tier-Proje
 
 # # # cd into the app folder
 # # navigate to the folder in which you have all the code run the following command
+
+mv /home/.env /Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
+
 cd Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
-
-# mv /home/.env /Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
-
 # docker-compose up
 
 # docker-compose --env-file ./home/.env up

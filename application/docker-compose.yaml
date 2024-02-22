@@ -10,8 +10,17 @@ services:
   backend:
     build: ./backend
     restart: unless-stopped
+    environment:
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MONGO_PORT=${MONGO_PORT}
+      - MONGO_IP=mongo
+      - MONGO_URI=${MONGO_URI}
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_LIFETIME=${JWT_LIFETIME}
     ports:
       - '5000:5000'
+
     volumes:
       - logs:/app/logs
       - ./backend:/app
