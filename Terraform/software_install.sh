@@ -17,16 +17,21 @@ echo "Docker installed and started successfully!"
 # Update the package index, and install the latest version of Docker Compose:
 sudo apt install docker-compose -y
 
+# set env variables
+#we move the .env file that moved earlier with remote-exect to .profile
+cd ~/
+sudo  tee -a nano .profile <<EOF
+set -o allexport; source /home/.env set +o allexport
+EOF
+
 # # clone code repo
 cd /home
+
 git clone https://github.com/Boubamahir2/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean.git
 
-# # # cd into the app folder
-# # navigate to the folder in which you have all the code run the following command
 
-mv /home/.env /Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
-
+# navigate to the folder in which you have all the code run the following command
 cd Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
-# docker-compose up
 
-# docker-compose --env-file ./home/.env up
+docker-compose up
+
