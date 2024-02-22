@@ -18,12 +18,14 @@
 # sudo apt install docker-compose -y
 
 # # clone code repo
-# cd /home
-# git clone https://github.com/Boubamahir2/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean.git
+cd /home
+git clone https://github.com/Boubamahir2/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean.git
 
 # # # cd into the app folder
 # # navigate to the folder in which you have all the code run the following command
 cd Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
+
+# mv /home/.env /Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
 
 # docker-compose up
 
