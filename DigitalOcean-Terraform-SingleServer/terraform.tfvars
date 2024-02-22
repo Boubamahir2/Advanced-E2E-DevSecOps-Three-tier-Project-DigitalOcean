@@ -1,7 +1,0 @@
-name         = "server"
-environment  = "Development"
-tag          = "Server"
-image        = "ubuntu-20-04-x64"
-domain_name  = "boubamahir.com"
-region       = "fra1"
-project_name = "Project Terraform"
