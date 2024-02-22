@@ -29,4 +29,4 @@ cd Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
 
 # docker-compose up
 
-# docker compose --env-file ./home/.env up
+# docker-compose --env-file ./home/.env up
