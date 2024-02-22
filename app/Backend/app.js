@@ -68,9 +68,9 @@ const port = process.env.PORT || 5000;
 
 const start = async () => {
   try {
-    await connectDB(process.env.MONGO_URI);
+    await connectDB('mongodb://mongodb:27017/docker-db');
     // await Job.deleteMany();
-    // await Job.create(jsonData);
+    await Job.create(jsonData);
     app.listen(port, () =>
       console.log(`Server is listening on port ${port}...`)
     );
