@@ -6,7 +6,7 @@ services:
     volumes:
       - data:/data/db
   backend:
-    build: ./Backend
+    build: ./backend
     restart: unless-stopped
     ports:
       - '5000:5000'

@@ -16,9 +16,10 @@ FROM node
 WORKDIR /app
 
 COPY . .
-# COPY package.json .
 
-RUN npm install
+COPY package.json ./
+
+RUN npm install --legacy-peer-deps
 
 EXPOSE 3000
 
