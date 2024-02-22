@@ -14,24 +14,31 @@ resource "digitalocean_droplet" "server" {
     host        = digitalocean_droplet.server.ipv4_address
   }
 
-    # Create directories for deployment scripts
+  # Create directories for deployment scripts
   provisioner "remote-exec" {
     inline = [
       "mkdir -p  /tmp/",
     ]
   }
-  
+
   # File provisioner to copy a file from local to the remote EC2 instance
   provisioner "file" {
-    source      = "software_install.sh"  # Replace with the path to your 
-    destination = "/tmp/software_install.sh"  # Replace with the path on the remote instance
+    source      = "software_install.sh"      # Replace with the path to your 
+    destination = "/tmp/software_install.sh" # Replace with the path on the remote instance
   }
 
+
   provisioner "remote-exec" {
-    inline = [ 
+    inline = [
       "sudo chmod +x /tmp/software_install.sh",
       "bash /tmp/software_install.sh"
     ]
+  }
+
+  # File provisioner to copy a file from local to the remote EC2 instance
+  provisioner "file" {
+    source      = ".env"  
+    destination = "/home/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application/.env" # Replace with the path on the remote instance
   }
 
 }
