@@ -54,6 +54,12 @@ app.use(cors())//allow our api access from different domains(cors: cross-origin 
 app.use(xss())//prevent xss attack on our server 
 app.use(mongoSanitize())//prevent mongo injection attack on our server
 
+  //documentation
+  app.get('/api/v1', (req, res) => {
+    res.send(
+      "<h1>Welcome to Job Finder API</h1><br><a href='/api-docs'>Documetation</a>"
+    );
+  });
 
 // routes
 app.use('/api/v1/auth',authRouter);
