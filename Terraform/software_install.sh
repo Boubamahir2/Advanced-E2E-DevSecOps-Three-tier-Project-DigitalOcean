@@ -4,18 +4,18 @@
 # # this code here is to ignore new kernel popup 
 # # ignore any interactive questions, its very important when running code with shell script or else your terminal will timeout
 # apt-get update -y
-# DEBIAN_FRONTEND=noninteractive apt-get upgrade  -y
+DEBIAN_FRONTEND=noninteractive apt-get upgrade  -y
 
-# # Install Docker
-# sudo apt install docker.io -y
-# # sudo usermod -aG docker jenkins
-# sudo usermod -aG docker ubuntu
-# sudo systemctl restart docker
-# sudo chmod 777 /var/run/docker.sock
-# echo "Docker installed and started successfully!"
+# Install Docker
+sudo apt install docker.io -y
+# sudo usermod -aG docker jenkins
+sudo usermod -aG docker ubuntu
+sudo systemctl restart docker
+sudo chmod 777 /var/run/docker.sock
+echo "Docker installed and started successfully!"
 
-# # Update the package index, and install the latest version of Docker Compose:
-# sudo apt install docker-compose -y
+# Update the package index, and install the latest version of Docker Compose:
+sudo apt install docker-compose -y
 
 # # clone code repo
 cd /home
