@@ -39,9 +39,6 @@ resource "digitalocean_droplet" "server" {
       "bash /tmp/software_install.sh"
     ]
   }
-
-
-
 }
 
 resource "digitalocean_tag" "webserver" {
