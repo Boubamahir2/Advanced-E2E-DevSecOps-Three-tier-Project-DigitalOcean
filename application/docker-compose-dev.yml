@@ -1,11 +1,11 @@
-version: "3"
+version: '3'
 services:
   frontend:
     image: jobster-client
     restart: unless-stopped
-    ports: 
-      - "80:80"
-      - "443:443"
+    ports:
+      - '80:80'
+      - '443:443'
     volumes:
       - caddy-data:/data
       - caddy-config:/config
@@ -21,7 +21,7 @@ services:
       - JWT_SECRET=${JWT_SECRET}
       - JWT_LIFETIME=${JWT_LIFETIME}
     ports:
-      - "5000:5000"
+      - '5000:5000'
     networks:
       - mern-app
 networks:

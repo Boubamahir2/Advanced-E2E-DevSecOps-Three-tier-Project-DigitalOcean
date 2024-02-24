@@ -17,6 +17,9 @@ echo "Docker installed and started successfully!"
 # Update the package index, and install the latest version of Docker Compose:
 sudo apt install docker-compose -y
 
+# install make
+sudo apt install make  -y
+
 # set env variables
 #we move the .env file that moved earlier with remote-exect to .profile
 cd ~/
