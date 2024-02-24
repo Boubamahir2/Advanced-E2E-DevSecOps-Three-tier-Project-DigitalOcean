@@ -1,0 +1,31 @@
+version: "3"
+services:
+  frontend:
+    image: jobster-client:${ENV}
+    restart: unless-stopped
+    ports: 
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy-data:/data
+      - caddy-config:/config
+    networks:
+      - mern-app
+  backend:
+    image: jobster-server
+    restart: unless-stopped
+    env_file: ./backend/config/${ENV}.env
+    ports:
+      - "5000:5000"
+    networks:
+      - mern-app
+networks:
+  mern-app:
+    driver: bridge
+volumes:
+  mongo-data:
+    driver: local
+  caddy-data:
+    driver: local
+  caddy-config:
+    driver: local

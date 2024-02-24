@@ -1,0 +1,9 @@
+server.boubamahir.com:443 {
+  tls amamahir2@gmail.com
+  root * /srv
+  route {
+    reverse_proxy /api/v1* api-server:5000
+    try_files {path} {path}/ /index.html
+    file_server
+  }
+}

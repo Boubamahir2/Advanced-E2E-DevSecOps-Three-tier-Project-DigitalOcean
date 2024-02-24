@@ -31,8 +31,8 @@ git clone https://github.com/Boubamahir2/Advanced-E2E-DevSecOps-Three-tier-Proje
 
 
 # navigate to the folder in which you have all the code run the following command
-cd Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
+# cd Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
 
-docker-compose up -d
+# docker-compose up -d
 
 

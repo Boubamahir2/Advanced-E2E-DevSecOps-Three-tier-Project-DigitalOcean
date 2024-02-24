@@ -1,26 +1,28 @@
-# FROM node:14-alpine as build
-# WORKDIR /app
-# COPY . .
-# RUN npm install
-# RUN npm run build
-
-# # Run stage
-# FROM node:14-alpine
-# WORKDIR /app
-# COPY --from=build /app/ ./
-# EXPOSE 3000
-# CMD ["npm", "start"]
-
+### First Stage ###
 FROM node
 
 WORKDIR /app
 
+COPY ./package.json ./
+COPY ./yarn.lock ./
+
+RUN yarn install
+
 COPY . .
 
-COPY package.json ./
+ARG BASE_URL
+ENV REACT_APP_BASE_URL=${BASE_URL}
 
-RUN npm install --legacy-peer-deps
+RUN yarn build
 
-EXPOSE 3000
+### Second Stage ###
+FROM caddy:2.1.1
 
-CMD [ "npm", "start" ]
+ARG CADDYFILE
+COPY ${CADDYFILE} /etc/caddy/Caddyfile
+
+COPY --from=builder /app/build/ /srv
+
+EXPOSE 80
+
+EXPOSE 443
