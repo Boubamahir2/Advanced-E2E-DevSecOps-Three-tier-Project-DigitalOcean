@@ -23,6 +23,4 @@ COPY ${CADDYFILE} /etc/caddy/Caddyfile
 
 COPY --from=builder /app/build/ /srv
 
-EXPOSE 80
-
-EXPOSE 443
+EXPOSE 3000

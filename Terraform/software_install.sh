@@ -33,7 +33,8 @@ cd /home
 git clone https://github.com/Boubamahir2/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean.git
 
 
-sudo apt install certbot -y
+sudo apt install certbot python3-certbot-nginx -y
+
 
 # sudo certbot certonly --webroot --webroot-path /your/project/root/public/directory/path  -d example.com
 
@@ -43,4 +44,4 @@ sudo apt install certbot -y
 # docker-compose up -d
 
 
-# sudo certbot certonly --webroot --webroot-path /your/project/root/public/directory/path  -d server.boubamahir.com
+# sudo certbot certonly --webroot --webroot-path /home/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application  -d server.boubamahir.com
