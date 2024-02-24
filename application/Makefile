@@ -1,8 +1,9 @@
-### PROD
 
+### PROD
+# cd backend && $(MAKE) build-production
 build-production:
-	cd backend && $(MAKE) build-production
-	cd frontend && $(MAKE) build	
+	cd frontend && $(MAKE) build-dev
+	cd backend && $(MAKE) build
 
 run-production:
 	ENV=production docker-compose -f docker-compose-production.yml up
