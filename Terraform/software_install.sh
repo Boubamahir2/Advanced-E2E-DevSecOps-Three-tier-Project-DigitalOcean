@@ -32,8 +32,13 @@ cd /home
 
 git clone https://github.com/Boubamahir2/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean.git
 
+# Installing Nginx¶
+sudo apt install nginx -y
+sudo systemctl start nginx  # Systemd-based systems
+sudo service nginx start  # SysV init systems
 
-sudo apt install certbot python3-certbot-nginx -y
+
+# sudo apt install certbot python3-certbot-nginx -y
 
 
 # sudo certbot certonly --webroot --webroot-path /your/project/root/public/directory/path  -d example.com
