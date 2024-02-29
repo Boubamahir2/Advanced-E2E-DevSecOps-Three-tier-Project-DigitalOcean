@@ -7,22 +7,22 @@ jobs:
   test-node:
     # Install node dependencies and run tests
     executor: node/default
-    working_directory: ~/backend
+    working_directory: ~/project/backend
     steps:
       - checkout:
-          path: ~/backend
+          path: ~/project/backend
       - node/install-packages:
           pkg-manager: npm
       - run:
           name: Run tests
           command: npm test --passWithNoTests
   build-node:
-    # Build node ~/backend
+    # Build node ~/project/backend
     executor: node/default
-    working_directory: ~/backend
+    working_directory: ~/project/backend
     steps:
       - checkout:
-          path: ~/backend
+          path: ~/project
       - node/install-packages:
           pkg-manager: npm
       - run:
