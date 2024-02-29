@@ -17,7 +17,7 @@ jobs:
           name: Run tests
           command: npm test --passWithNoTests
   build-node:
-    # Build node fron~/frontend
+    # Build node fro~/frontend
     executor: node/default
     working_directory: ~/frontend
     steps:
@@ -42,10 +42,25 @@ jobs:
     docker:
       - image: cimg/base:stable
     steps:
-      # Replace this with steps to deploy to users
+      - checkout
+    # Optional: Set up remote Docker if needed
+      - setup_remote_docker:
+          docker_layer_caching: false
       - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          name: Build Docker image
+          command: docker build -t jobster-front-cirlcleci -t jobster-front-cirlcleci:latest .
+      - run:
+          name: Login to Docker Hub
+          command: |
+            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+          environment:
+            DOCKER_USERNAME: ${DOCKER_USERNAME}  # Replace with encrypted username
+            DOCKER_PASSWORD: ${DOCKER_PASSWORD}  # Replace with encrypted password
+      - run:
+          name: Push image to Docker Hub
+          command: docker push jobster-front-cirlcleci:latest
+
+# If you want to push the image only after successful tests and build, make the build-node job dependent on the test-node job:
 workflows:
   build-and-test:
     jobs:
@@ -53,6 +68,6 @@ workflows:
       - build-node:
           requires:
             - test-node
-    # - deploy:
-    #     requires:
-    #       - build-node
+      - deploy:
+          requires:
+            - build-node
