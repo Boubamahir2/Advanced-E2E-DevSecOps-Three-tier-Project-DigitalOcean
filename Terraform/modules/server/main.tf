@@ -1,3 +1,7 @@
+locals {
+  script_directory = "${path.module}/scripts/"
+}
+
 resource "digitalocean_droplet" "server" {
   name     = var.name
   image    = var.image
@@ -7,6 +11,7 @@ resource "digitalocean_droplet" "server" {
   tags     = [digitalocean_tag.webserver.id, var.tag]
 
   # Provisioners should go outside the resource block
+
   connection {
     type        = "ssh"
     user        = "root"
@@ -14,24 +19,23 @@ resource "digitalocean_droplet" "server" {
     host        = digitalocean_droplet.server.ipv4_address
   }
 
-  # Create directories for deployment scripts
   provisioner "remote-exec" {
     inline = [
-      "mkdir -p  /tmp/",
+      "mkdir -p  /tmp/scripts/",
     ]
   }
 
-  # File provisioner to copy a file from local to the remote EC2 instance
   provisioner "file" {
-    source      = "software_install.sh"      # Replace with the path to your 
-    destination = "/home/software_install.sh" # Replace with the path on the remote instance
+    source      = "${local.script_directory}/"
+    destination = "/tmp/scripts/"
   }
-  
+
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x /home/software_install.sh",
-      "bash /home/software_install.sh"
+      "sed -i 's/\r$//' /tmp/scripts/software_install.sh",
+      # "bash /tmp/scripts/software_install.sh"
     ]
+    # Create directories for deployment scripts
   }
 }
 
