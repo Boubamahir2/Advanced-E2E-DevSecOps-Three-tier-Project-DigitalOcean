@@ -4,39 +4,18 @@ version: 2.1
 orbs:
   node: circleci/node@5
 jobs:
-  test-node:
-    # Install node dependencies and run tests
+  build_and_test:
     executor: node/default
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: npm
       - run:
+          command: npm test
           name: Run tests
-          command: npm test --passWithNoTests
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
-  build-node:
-    # Build node fro~/frontend
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
       - run:
-          command: npm run build
-      - run:
-          name: Create the ~/artifacts directory if it doesn't exist
-          command: mkdir -p ~/artifacts
-      # Copy output to artifacts dir
-      - run:
-          name: Copy artifacts
-          command: cp -R build dist public .output .next .docusaurus ~/artifacts 2>/dev/null || true
-      - store_artifacts:
-          path: ~/artifacts
-          destination: node-build
+          command: npm build
+          name: Build app
       - persist_to_workspace:
           root: ~/project
           paths:
@@ -68,10 +47,7 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - test-node
-      - build-node:
-          requires:
-            - test-node
+      - build_and_test
       - deploy:
           requires:
-            - build-node
+            - build_and_test
