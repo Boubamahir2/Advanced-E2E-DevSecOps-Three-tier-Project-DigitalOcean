@@ -24,13 +24,13 @@ resource "digitalocean_droplet" "server" {
   # File provisioner to copy a file from local to the remote EC2 instance
   provisioner "file" {
     source      = "software_install.sh"      # Replace with the path to your 
-    destination = "/tmp/software_install.sh" # Replace with the path on the remote instance
+    destination = "/home/software_install.sh" # Replace with the path on the remote instance
   }
   
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x /tmp/software_install.sh",
-      "bash /tmp/software_install.sh"
+      "sudo chmod +x /home/software_install.sh",
+      "bash /home/software_install.sh"
     ]
   }
 }
