@@ -2,42 +2,21 @@
 # Stacks detected: deps:node:application/frontend
 version: 2.1
 orbs:
-  node: circleci/node@5
-jobs:
-  test-node:
-    # Install node dependencies and run tests
-    executor: node/default
+  node: circleci/node@5.0.2
 
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run:
-          name: Run tests
-          command: npm test --passWithNoTests
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
-  build-node:
-    # Build node fro~/frontend
+jobs:
+  build_and_test:
     executor: node/default
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: npm
       - run:
-          command: npm run build
+          command: npm test
+          name: Run tests
       - run:
-          name: Create the ~/artifacts directory if it doesn't exist
-          command: mkdir -p ~/artifacts
-      # Copy output to artifacts dir
-      - run:
-          name: Copy artifacts
-          command: cp -R build dist public .output .next .docusaurus ~/artifacts 2>/dev/null || true
-      - store_artifacts:
-          path: ~/artifacts
-          destination: node-build
+          command: npm build
+          name: Build app
       - persist_to_workspace:
           root: ~/project
           paths:
