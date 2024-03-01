@@ -6,7 +6,7 @@ variable "do_token" {
 
 variable "name" {
   description = "Name for resources"
-  type        = string
+  type = list(string)
 }
 
 variable "environment" {
@@ -38,3 +38,5 @@ variable "project_name" {
   description = "Name for the DigitalOcean project"
   type        = string
 }
+
+

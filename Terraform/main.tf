@@ -1,6 +1,6 @@
 module "ubuntu-server" {
   source      = "./modules/server"
-  name        = var.name
+  name        = var.name[0]
   image       = var.image
   environment = var.environment
   tag         = var.tag
