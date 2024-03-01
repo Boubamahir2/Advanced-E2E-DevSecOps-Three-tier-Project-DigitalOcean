@@ -7,10 +7,8 @@ jobs:
   test-node:
     # Install node dependencies and run tests
     executor: node/default
-    working_directory: ~/frontend
+    working_directory: ~/app
     steps:
-      - checkout:
-          path: ~/frontend
       - node/install-packages:
           pkg-manager: npm
       - run:
@@ -19,10 +17,7 @@ jobs:
   build-node:
     # Build node fro~/frontend
     executor: node/default
-    working_directory: ~/frontend
     steps:
-      - checkout:
-          path: ~/frontend
       - node/install-packages:
           pkg-manager: npm
       - run:
