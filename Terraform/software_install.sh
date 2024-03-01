@@ -1,7 +1,7 @@
-# !/bin/bash
+# !/bin/env bash
 set -e  # Exit immediately if a command exits with a non-zero status
 
-# # this code here is to ignore new kernel popup 
+# # this code here is to ignore new kernel popup
 # # ignore any interactive questions, its very important when running code with shell script or else your terminal will timeout
 apt-get update -y
 DEBIAN_FRONTEND=noninteractive apt-get upgrade  -y
@@ -13,40 +13,3 @@ sudo usermod -aG docker ubuntu
 sudo systemctl restart docker
 sudo chmod 777 /var/run/docker.sock
 echo "Docker installed and started successfully!"
-
-# Update the package index, and install the latest version of Docker Compose:
-# sudo apt install docker-compose -y
-
-# install make
-# sudo apt install make  -y
-
-# set env variables
-#we move the .env file that moved earlier with remote-exect to .profile
-cd ~/
-sudo  tee -a nano .profile <<EOF
-set -o allexport; source /home/.env set +o allexport
-EOF
-
-# # clone code repo
-# cd /home
-
-# git clone https://github.com/Boubamahir2/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean.git
-
-# Installing Nginx¶
-# sudo apt install nginx -y
-# sudo systemctl start nginx  # Systemd-based systems
-# sudo service nginx start  # SysV init systems
-
-
-# sudo apt install certbot python3-certbot-nginx -y
-
-
-# sudo certbot certonly --webroot --webroot-path /your/project/root/public/directory/path  -d example.com
-
-# navigate to the folder in which you have all the code run the following command
-# cd Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application
-
-# docker-compose up -d
-
-
-# sudo certbot certonly --webroot --webroot-path /home/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean/application  -d server.boubamahir.com

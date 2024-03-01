@@ -3,11 +3,10 @@ set -e  # Exit immediately if a command exits with a non-zero status
 
 # this code here is to ignore new kernel popup 
 # ignore any interactive questions, its very important when running code with shell script or else your terminal will timeout
-DEBIAN_FRONTEND=noninteractive apt-get upgrade  -y
-
 sudo apt update -y
-sudo apt install fontconfig openjdk-17-jre -y
-java -version
+DEBIAN_FRONTEND=noninteractive apt-get upgrade  -y
+sudo apt install openjdk-17-jre-headless -y
+java --version
 echo "openjdk installed successfully!"
 
 #jenkins
@@ -41,7 +40,6 @@ sudo snap install helm --classic
 echo "Helm installed successfully!"
 
 # Install and start Nginx as a reverse proxy
-sudo apt upgrade -y
 sudo apt install nginx  -y
 sudo systemctl enable nginx
 sudo systemctl start nginx

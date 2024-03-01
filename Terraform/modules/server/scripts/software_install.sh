@@ -1,9 +1,10 @@
-!/bin/bash
+#!/bin/bash
 set -e  # Exit immediately if a command exits with a non-zero status
 
-this code here is to ignore new kernel popup 
-ignore any interactive questions, its very important when running code with shell script or else your terminal will timeout
-DEBIAN_FRONTEND=noninteractive apt-get upgrade  --fix-missing -y
+# this code here is to ignore new kernel popup 
+# ignore any interactive questions, its very important when running code with shell script or else your terminal will timeout
+sudo apt-get update -y
+DEBIAN_FRONTEND=noninteractive apt-get upgrade 
 
 sudo apt update -y
 sudo apt install fontconfig openjdk-17-jre -y
@@ -16,7 +17,6 @@ https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
 https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
 /etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt-get update -y
 sudo apt-get install jenkins -y
 sudo systemctl start jenkins
 sudo systemctl enable jenkins

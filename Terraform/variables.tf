@@ -38,8 +38,3 @@ variable "project_name" {
   description = "Name for the DigitalOcean project"
   type        = string
 }
-
-variable "ssh_key" {
-  description = "ssh key for the DigitalOcean connection"
-  type        = string
-}
