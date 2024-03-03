@@ -29,7 +29,7 @@ sudo systemctl restart docker
 sudo chmod 777 /var/run/docker.sock
 echo "Docker installed and started successfully!"
 # Run Docker Container of Sonarqube
-docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
+docker run -d --name sonarq -p 9000:9000 sonarqube:lts-community
 
 # install trivy
 curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.49.1
