@@ -177,9 +177,4 @@ listen 443 ssl;
 
 }
 
-$ docker-compose -f docker-compose-production.yml build --no-cache
 
-
-promotheuse port=9090
-grafana port=3000
-trivy port=
