@@ -5,42 +5,6 @@ set -e  # Exit immediately if a command exits with a non-zero status
 # ignore any interactive questions, its very important when running code with shell script or else your terminal will timeout
 sudo apt update -y
 DEBIAN_FRONTEND=noninteractive apt-get upgrade  -y
-sudo apt install openjdk-17-jre-headless -y
-java --version
-echo "openjdk installed successfully!"
-
-#jenkins
-sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
-https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
-echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
-https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
-/etc/apt/sources.list.d/jenkins.list > /dev/null
-sudo apt-get update -y
-sudo apt-get install jenkins -y
-sudo systemctl start jenkins
-sudo systemctl enable jenkins
-echo "jenkins installed and started successfully!"
-
-# Install Docker
-sudo apt install docker.io -y
-sudo usermod -aG docker jenkins
-# sudo usermod -aG docker ubuntu
-sudo systemctl restart docker
-sudo chmod 777 /var/run/docker.sock
-echo "Docker installed and started successfully!"
-# Run Docker Container of Sonarqube
-
-docker volume create sonarqube_data
-docker volume create sonarqube_extensions
-docker volume create sonarqube_logs
-
-# docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
-docker run -d --name sonar \
-  -p 9000:9000 \
-  -v sonarqube_data:/opt/sonarqube/data \
-  -v sonarqube_extensions:/opt/sonarqube/extensions \
-  -v sonarqube_logs:/opt/sonarqube/logs \
-  sonarqube:lts-community
 
 # install trivy
 curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin v0.49.1
@@ -60,11 +24,6 @@ echo "Nginx installed and started successfully!"
 sudo apt install certbot python3-certbot-nginx -y
 echo "Certbot installed successfully!"
 
-echo "--------------------Installing K9s--------------------"
-wget https://github.com/derailed/k9s/releases/download/v0.25.18/k9s_Linux_x86_64.tar.gz
-sudo tar -xvzf k9s_Linux_x86_64.tar.gz
-sudo install -m 755 k9s /usr/local/bin
-echo "K9s installed and started successfully!"
 
 # Install Prometheus and Grafana:
 sudo useradd --system --no-create-home --shell /bin/false prometheus
@@ -110,7 +69,6 @@ EOF
 # Enable and start Prometheus:
 sudo systemctl enable prometheus
 sudo systemctl start prometheus
-# sudo systemctl status prometheus
 echo "prometheus installed and started successfully!"
 
 # Installing Node Exporter:
@@ -169,9 +127,7 @@ sudo tee -a nano /etc/prometheus/prometheus.yml << EOF
 EOF
 
 # Reload the Prometheus configuration without restarting:
-promtool check config /etc/prometheus/prometheus.yml
 curl -X POST http://localhost:9090/-/reload
-
 
 # Install Grafana on Ubuntu 22.04 and Set it up to Work with Prometheus
 sudo apt-get update -y
@@ -190,7 +146,4 @@ sudo apt-get -y install grafana
 # To automatically start Grafana after a reboot, enable the service:
 sudo systemctl enable grafana-server
 sudo systemctl start grafana-server
-echo "node grafana and started successfully!"
-
-echo "--------------------Jenkins Password--------------------"
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+echo "grafana installed and started successfully!"
