@@ -15,14 +15,14 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/Boubamahir2/DevSecOps-Project.git'
+                git branch: 'frontend', url: 'https://github.com/Boubamahir2/Advanced-E2E-DevSecOps-Three-tier-Project-DigitalOcean.git'
             }
         }
         stage("Sonarqube Analysis") {
             steps {
                 withSonarQubeEnv('sonar-server') {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Netflix \
-                    -Dsonar.projectKey=Netflix'''
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Jobster \
+                    -Dsonar.projectKey=Jobster'''
                 }
             }
         }
