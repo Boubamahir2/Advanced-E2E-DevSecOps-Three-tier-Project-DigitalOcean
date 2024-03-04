@@ -83,12 +83,12 @@ pipeline{
                     // Stop and remove the existing container if it exists
                     sh 'docker rm -f jobster_backend || true'
                 }
-    }
-}
+            }
+        }
         
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name jobster_backend -p 3000:3500 boubamahir/jobster_backend:latest'
+                sh 'docker run -d --name jobster_backend -p 5000:5000 boubamahir/jobster_backend:latest'
             }
         }
     }
