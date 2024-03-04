@@ -53,17 +53,25 @@ pipeline{
                 sh "trivy fs . > trivyfs.txt"
             }
         }
+
         stage("Docker Build & Push"){
             steps{
                 script{
-                  withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){   
-                      sh "docker build -t jobster_backend ."
-                      sh "docker tag jobster_backend boubamahir/jobster_backend:latest "
-                      sh "docker push boubamahir/jobster_backend:latest "
-                  }
+                    withCredentials([usernamePassword(credentialsId: 'JWT_SECRET', variable: 'secretJWT'),
+                                    usernamePassword(credentialsId: 'MONGO_URI', variable: 'mongoURI')]) {
+                        withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){
+                            sh "docker build -t jobster_backend \
+                                --build-arg JWT_SECRET=${secretJWT} \
+                                --build-arg MONGO_URI=${mongoURI} ."
+                            sh "docker tag jobster_backend boubamahir/jobster_backend:latest"
+                            sh "docker push boubamahir/jobster_backend:latest"
+                        }
+                    }
                 }
             }
         }
+
+
         stage("TRIVY"){
             steps{
                 sh "trivy image boubamahir/jobster_backend:latest > trivyimage.txt" 
