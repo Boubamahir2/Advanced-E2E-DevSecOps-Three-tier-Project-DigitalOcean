@@ -7,8 +7,6 @@ pipeline{
     }
     environment {
         SCANNER_HOME=tool 'sonar-scanner'
-        JWT_SECRET = credentials('JWT_SECRET')
-        MONGO_URI = credentials('MONGO_URI')
     }
     stages {
         stage('clean workspace'){
@@ -59,20 +57,14 @@ pipeline{
         stage("Docker Build & Push"){
             steps{
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'JWT_SECRET', variable: 'secretJWT'),
-                                    usernamePassword(credentialsId: 'MONGO_URI', variable: 'mongoURI')]) {
-                        withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){
-                            sh "docker build -t jobster_frontend \
-                                --build-arg JWT_SECRET=${secretJWT} \
-                                --build-arg MONGO_URI=${mongoURI} ."
-                            sh "docker tag jobster_frontend boubamahir/jobster_frontend:latest"
-                            sh "docker push boubamahir/jobster_frontend:latest"
-                        }
-                    }
+                  withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){   
+                      sh "docker build -t jobster_frontend ."
+                      sh "docker tag jobster_frontend boubamahir/jobster_frontend:latest "
+                      sh "docker push boubamahir/jobster_frontend:latest "
+                  }
                 }
             }
         }
-
 
         stage("TRIVY"){
             steps{
