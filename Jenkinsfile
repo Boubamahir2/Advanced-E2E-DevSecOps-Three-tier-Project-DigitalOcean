@@ -21,11 +21,13 @@ pipeline{
         }
         stage("Sonarqube Analysis "){
             steps{
-                withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Jobster \
-                    -Dsonar.projectKey=Jobster '''
-                }
-            }
+                timeout(time: 1, unit: 'MINUTES') {
+                    withSonarQubeEnv('sonar-server') {
+                        sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Jobster \
+                        -Dsonar.projectKey=Jobster '''
+                    }
+                }    
+            }  
         }
         stage("quality gate"){
           steps {
