@@ -23,8 +23,8 @@ pipeline{
             steps{
                 
                 withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Jobster \
-                    -Dsonar.projectKey=Jobster '''
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=jobster_frontend \
+                    -Dsonar.projectKey=jobster_frontend '''
                 }
           
             }  
@@ -57,30 +57,30 @@ pipeline{
             steps{
                 script{
                   withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){   
-                      sh "docker build -t Jobster ."
-                      sh "docker tag Jobster boubamahir/Jobster:latest "
-                      sh "docker push boubamahir/Jobster:latest "
+                      sh "docker build -t jobster_frontend ."
+                      sh "docker tag jobster_frontend boubamahir/jobster_frontend:latest "
+                      sh "docker push boubamahir/jobster_frontend:latest "
                   }
                 }
             }
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image boubamahir/Jobster:latest > trivyimage.txt" 
+                sh "trivy image boubamahir/jobster_frontend:latest > trivyimage.txt" 
             }
         }
         stage('Remove Existing Container'){
             steps{
                 script {
                     // Stop and remove the existing container if it exists
-                    sh 'docker rm -f Jobster || true'
+                    sh 'docker rm -f jobster_frontend || true'
                 }
     }
 }
         
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name Jobster -p 3000:3500 boubamahir/Jobster:latest'
+                sh 'docker run -d --name jobster_frontend -p 3000:3500 boubamahir/jobster_frontend:latest'
             }
         }
     }
