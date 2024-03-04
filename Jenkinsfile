@@ -23,8 +23,8 @@ pipeline{
             steps{
                 
                 withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Jobster_backend \
-                    -Dsonar.projectKey=Jobster_backend '''
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=jobster_backend \
+                    -Dsonar.projectKey=jobster_backend '''
                 }
           
             }  
@@ -57,30 +57,30 @@ pipeline{
             steps{
                 script{
                   withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){   
-                      sh "docker build -t Jobster_backend ."
-                      sh "docker tag Jobster_backend boubamahir/Jobster_backend:latest "
-                      sh "docker push boubamahir/Jobster_backend:latest "
+                      sh "docker build -t jobster_backend ."
+                      sh "docker tag jobster_backend boubamahir/jobster_backend:latest "
+                      sh "docker push boubamahir/jobster_backend:latest "
                   }
                 }
             }
         }
         stage("TRIVY"){
             steps{
-                sh "trivy image boubamahir/Jobster_backend:latest > trivyimage.txt" 
+                sh "trivy image boubamahir/jobster_backend:latest > trivyimage.txt" 
             }
         }
         stage('Remove Existing Container'){
             steps{
                 script {
                     // Stop and remove the existing container if it exists
-                    sh 'docker rm -f Jobster_backend || true'
+                    sh 'docker rm -f jobster_backend || true'
                 }
     }
 }
         
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name Jobster_backend -p 3000:3500 boubamahir/Jobster_backend:latest'
+                sh 'docker run -d --name jobster_backend -p 3000:3500 boubamahir/jobster_backend:latest'
             }
         }
     }
