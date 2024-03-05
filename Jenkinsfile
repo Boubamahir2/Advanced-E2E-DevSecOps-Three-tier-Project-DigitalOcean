@@ -7,6 +7,7 @@ pipeline{
     }
     environment {
         SCANNER_HOME=tool 'sonar-scanner'
+        REACT_APP_BASE_URL = credentials('REACT_APP_BASE_URL')
     }
     stages {
         stage('clean workspace'){
@@ -39,6 +40,7 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 sh "npm install"
+                sh 'export REACT_APP_BASE_URL=$REACT_APP_BASE_URL'
             }
         }
         stage('OWASP FS SCAN') {
