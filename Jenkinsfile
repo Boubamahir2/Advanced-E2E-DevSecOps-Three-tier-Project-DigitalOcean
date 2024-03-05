@@ -65,11 +65,11 @@ pipeline{
 
                     withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){
                         // Fix syntax error in the build command
-                        sh '''
-                            docker build -t jobster_backend \
+                        
+                        sh "docker build -t jobster_backend \
                             --build-arg JWT_SECRET=${secretJWT} \
                             --build-arg MONGO_URI=${mongoURI} .
-                        '''
+                        "
                         sh "docker tag jobster_backend boubamahir/jobster_backend:latest"
                         sh "docker push boubamahir/jobster_backend:latest"
                     }
