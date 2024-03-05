@@ -41,8 +41,6 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 sh "npm install"
-                sh 'export MONGO_URI=$MONGO_URI'
-                sh 'export JWT_SECRET=$JWT_SECRET'
             }
         }
         stage('OWASP FS SCAN') {
@@ -62,9 +60,7 @@ pipeline{
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){
-                        sh 'export MONGO_URI=$MONGO_URI'
-                        sh 'export JWT_SECRET=$JWT_SECRET'
-                        sh " docker build -t jobster_backend ."
+                        sh " docker build -t  jobster_backend ."
                         sh "docker tag jobster_backend boubamahir/jobster_backend:latest"
                         sh "docker push boubamahir/jobster_backend:latest"
                     }
@@ -90,7 +86,7 @@ pipeline{
         
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name jobster_backend -p 5000:5000 boubamahir/jobster_backend:latest'
+                sh 'docker run -d --name jobster_backend -p 5000:5000 -e MONGO_URI=${MONGO_URI} -e JWT_SECRET=${JWT_SECRET} boubamahir/jobster_backend:latest'
             }
         }
     }
