@@ -7,6 +7,8 @@ pipeline{
     }
     environment {
         SCANNER_HOME=tool 'sonar-scanner'
+        MONGO_URI = credentials('MONGO_URI')
+        JWT_SECRET = credentials('JWT_SECRET')
     }
     stages {
         stage('clean workspace'){
@@ -39,6 +41,8 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 sh "npm install"
+                sh 'export MONGO_URI=$MONGO_URI'
+                sh 'export JWT_SECRET=$JWT_SECRET'
             }
         }
         stage('OWASP FS SCAN') {
@@ -57,18 +61,9 @@ pipeline{
         stage("Docker Build & Push"){
             steps{
                 script{
-                    // Retrieve JWT_SECRET
-                    def secretJWT = credentials('JWT_SECRET')
-
-                    // Retrieve MONGO_URI
-                    def mongoURI = credentials('MONGO_URI')
-
                     withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){
                         // Fix syntax error in the build command
-                        sh ''' docker build -t jobster_backend \
-                            --build-arg JWT_SECRET=${secretJWT} \
-                            --build-arg MONGO_URI=${mongoURI} .
-                        '''
+                        sh " docker build -t jobster_backend ."
                         sh "docker tag jobster_backend boubamahir/jobster_backend:latest"
                         sh "docker push boubamahir/jobster_backend:latest"
                     }
