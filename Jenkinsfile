@@ -57,19 +57,26 @@ pipeline{
         stage("Docker Build & Push"){
             steps{
                 script{
-                    withCredentials([usernamePassword(credentialsId: 'JWT_SECRET', variable: 'secretJWT'),
-                                    usernamePassword(credentialsId: 'MONGO_URI', variable: 'mongoURI')]) {
-                        withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){
-                            sh "docker build -t jobster_backend \
-                                --build-arg JWT_SECRET=${secretJWT} \
-                                --build-arg MONGO_URI=${mongoURI} ."
-                            sh "docker tag jobster_backend boubamahir/jobster_backend:latest"
-                            sh "docker push boubamahir/jobster_backend:latest"
-                        }
+                    // Retrieve JWT_SECRET
+                    def secretJWT = credentials('JWT_SECRET')
+
+                    // Retrieve MONGO_URI
+                    def mongoURI = credentials('MONGO_URI')
+
+                    withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){
+                        // Fix syntax error in the build command
+                        sh """
+                            docker build -t jobster_backend \
+                            --build-arg JWT_SECRET=${secretJWT} \
+                            --build-arg MONGO_URI=${mongoURI} .
+                        """
+                        sh "docker tag jobster_backend boubamahir/jobster_backend:latest"
+                        sh "docker push boubamahir/jobster_backend:latest"
                     }
                 }
             }
         }
+
 
 
         stage("TRIVY"){
