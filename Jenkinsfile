@@ -62,7 +62,8 @@ pipeline{
             steps{
                 script{
                     withDockerRegistry(credentialsId: 'docker-token', toolName: 'docker'){
-                        // Fix syntax error in the build command
+                        sh 'export MONGO_URI=$MONGO_URI'
+                        sh 'export JWT_SECRET=$JWT_SECRET'
                         sh " docker build -t jobster_backend ."
                         sh "docker tag jobster_backend boubamahir/jobster_backend:latest"
                         sh "docker push boubamahir/jobster_backend:latest"
