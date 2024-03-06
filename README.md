@@ -2,14 +2,6 @@
 
 Project in Action - [Jobster](https://redux-toolkit-jobster.netlify.app/)
 
-#### React Course
-
-[My React Course](https://www.udemy.com/course/react-tutorial-and-projects-course/?referralCode=FEE6A921AF07E2563CEF)
-
-#### Support
-
-Find the App Useful? [You can always buy me a coffee](https://www.buymeacoffee.com/johnsmilga)
-
 #### Run The App Locally
 
 ```sh
@@ -68,9 +60,6 @@ npm install normalize.css
 - import 'normalize.css' in index.js
 - SET BEFORE 'index.css'
 - replace contents of index.css
-- if any questions about normalize or specific styles
-- Coding Addict - [Default Starter Video](https://youtu.be/UDdyGNlQK5w)
-- Repo - [Default Starter Repo](https://github.com/john-smilga/default-starter)
 
 #### 4) Landing Page - Setup
 
@@ -606,13 +595,13 @@ npm install axios
 #### 25) API
 
 - Root URL
-- https://jobify-prod.herokuapp.com/api/v1/toolkit
+- https://server.boubamahir.com/api/v1
 
 - NODE COURSE
 
 ###### Register USER
 
-- https://jobify-prod.herokuapp.com/api/v1/toolkit/auth/register
+- https://server.boubamahir.com/api/v1
 
 - POST /auth/register
 - {name:'john',email:'john@gmail.com',password:'secret'}
@@ -644,7 +633,7 @@ npm install axios
 import axios from 'axios';
 
 const customFetch = axios.create({
-  baseURL: 'https://jobify-prod.herokuapp.com/api/v1/toolkit',
+  baseURL: 'https://server.boubamahir.com/api/v1',
 });
 
 export default customFetch;
