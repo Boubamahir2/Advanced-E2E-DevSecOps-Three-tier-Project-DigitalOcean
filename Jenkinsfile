@@ -40,7 +40,6 @@ pipeline{
         stage('Install Dependencies') {
             steps {
                 sh "npm install"
-                sh 'export REACT_APP_BASE_URL=$REACT_APP_BASE_URL'
             }
         }
         stage('OWASP FS SCAN') {
@@ -84,7 +83,7 @@ pipeline{
         
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name jobster_frontend -p 3000:3500 boubamahir/jobster_frontend:latest'
+                sh 'docker run -d --name jobster_frontend -p 3000:3000 boubamahir/jobster_frontend:latest'
             }
         }
     }
