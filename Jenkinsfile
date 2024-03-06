@@ -83,7 +83,7 @@ pipeline{
         
         stage('Deploy to container'){
             steps{
-                sh 'docker run -d --name jobster_frontend -p 3000:3000 boubamahir/jobster_frontend:latest'
+                sh 'docker run -d --name jobster_frontend -p 3000:3000 -e REACT_APP_BASE_URL=${REACT_APP_BASE_URL} boubamahir/jobster_frontend:latest'
             }
         }
     }
